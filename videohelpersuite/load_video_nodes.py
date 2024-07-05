@@ -211,10 +211,14 @@ def load_video_cv(video: str, force_rate: int, force_size: str,
         "loaded_width": new_size[0],
         "loaded_height": new_size[1],
     }
+
+    filename_with_extension = os.path.basename(video)
+    filename_without_extension = os.path.splitext(filename_with_extension)[0]
+
     if vae is None:
-        return (images, len(images), lazy_eval(audio), video_info, None)
+        return (images, len(images), lazy_eval(audio), video_info, filename_without_extension, None)
     else:
-        return (None, len(images), lazy_eval(audio), video_info, {"samples": images})
+        return (None, len(images), lazy_eval(audio), video_info, filename_without_extension, {"samples": images})
 
 
 
@@ -249,8 +253,8 @@ class LoadVideoUpload:
 
     CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
 
-    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "LATENT")
-    RETURN_NAMES = ("IMAGE", "frame_count", "audio", "video_info", "LATENT")
+    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "STRING", "LATENT")
+    RETURN_NAMES = ("IMAGE", "frame_count", "audio", "video_info", "file_name", "LATENT")
 
     FUNCTION = "load_video"
 
@@ -295,7 +299,7 @@ class LoadVideoPath:
 
     CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
 
-    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "LATENT")
+    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "LATENT", )
     RETURN_NAMES = ("IMAGE", "frame_count", "audio", "video_info", "LATENT")
 
     FUNCTION = "load_video"
