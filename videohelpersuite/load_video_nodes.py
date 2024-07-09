@@ -216,9 +216,9 @@ def load_video_cv(video: str, force_rate: int, force_size: str,
     filename_without_extension = os.path.splitext(filename_with_extension)[0]
 
     if vae is None:
-        return (images, len(images), lazy_eval(audio), video_info, filename_without_extension, None)
+        return (images, len(images), lazy_eval(audio), video_info, filename_without_extension, video, None)
     else:
-        return (None, len(images), lazy_eval(audio), video_info, filename_without_extension, {"samples": images})
+        return (None, len(images), lazy_eval(audio), video_info, filename_without_extension, video, {"samples": images})
 
 
 
@@ -253,8 +253,8 @@ class LoadVideoUpload:
 
     CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
 
-    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "STRING", "LATENT")
-    RETURN_NAMES = ("IMAGE", "frame_count", "audio", "video_info", "file_name", "LATENT")
+    RETURN_TYPES = ("IMAGE", "INT", "VHS_AUDIO", "VHS_VIDEOINFO", "STRING", "VIDEO", "LATENT")
+    RETURN_NAMES = ("IMAGE", "frame_count", "audio", "video_info", "file_name", "file_path", "LATENT")
 
     FUNCTION = "load_video"
 
