@@ -38,7 +38,6 @@ async def view_video(request):
         if "subfolder" in request.rel_url.query:
             output_dir = os.path.join(output_dir, request.rel_url.query["subfolder"])
 
-        filename = os.path.basename(filename)
         file = os.path.join(output_dir, filename)
 
         if query.get('format', 'video') == 'folder':

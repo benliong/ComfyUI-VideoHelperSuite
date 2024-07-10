@@ -227,11 +227,15 @@ class LoadVideoUpload:
     def INPUT_TYPES(s):
         input_dir = folder_paths.get_input_directory()
         files = []
-        for f in os.listdir(input_dir):
-            if os.path.isfile(os.path.join(input_dir, f)):
-                file_parts = f.split('.')
+
+        for root, dirs, files_in_dir in os.walk(input_dir):            
+            for file in files_in_dir:
+                file_path = os.path.relpath(os.path.join(root, file), start=input_dir)
+                file_path = file_path.replace("\\", "/")  # so the filename is processed correctly in widgets.js
+                file_parts = file_path.split('.')
                 if len(file_parts) > 1 and (file_parts[-1] in video_extensions):
-                    files.append(f)
+                    files.append(file_path)
+
         return {"required": {
                     "video": (sorted(files),),
                      "force_rate": ("INT", {"default": 0, "min": 0, "max": 60, "step": 1}),
